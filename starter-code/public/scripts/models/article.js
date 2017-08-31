@@ -21,7 +21,7 @@ var app = app || {};
     Article.all = rows.map(ele => new Article(ele));
   };
 
-  // COMMENT: What is this function doing? Where is it called? Does it call any other functions, and if so, in what file(s) do those function(s) live?
+  // COMMENT:(DONE) What is this function doing? Where is it called? Does it call any other functions, and if so, in what file(s) do those function(s) live?
 
   // Article.fetchAll triggers an HTTP get request using jQuery to retireive the articles from the databse, and then taking the returned results as a parameter and calling the Article.loadAll method. It is called in the function articleController.loadAll in the file articleController.js.
   Article.fetchAll = callback => {
@@ -58,7 +58,7 @@ var app = app || {};
                       }, []);
   };
 
-  // COMMENT: What is this function doing? Where is it called? Does it call any other functions, and if so, in what file(s) do those function(s) live?
+  // COMMENT:(DONE) What is this function doing? Where is it called? Does it call any other functions, and if so, in what file(s) do those function(s) live?
 
   // This function takes each author in allAuthors() after the Article.all array has been filtered by author, the body of their articles have been mapped to establish word count, and all their word counts for all their articles have been added together through the reduce. It is called in adminView.initAdminPage(), and it calls Article.allAuthors() and filter, map, and reduce.
   Article.numWordsByAuthor = () => {
@@ -80,7 +80,7 @@ var app = app || {};
     }
   };
 
-  // COMMENT: What is this function doing? Where is it called? Does it call any other functions, and if so, in what file(s) do those function(s) live?
+  // COMMENT:(DONE) What is this function doing? Where is it called? Does it call any other functions, and if so, in what file(s) do those function(s) live?
 
   // This function deletes the table with the exception of the header row where the labels are listed using the $.ajax method to get the url 'tables' and applying the method delete. It can be called in the postgres shell, and it calls a console.log and a callback.
 
