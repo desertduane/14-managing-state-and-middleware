@@ -8,7 +8,7 @@ const requestProxy = require('express-request-proxy'); // REVIEW: We've added a 
 const PORT = process.env.PORT || 3000;
 const app = express();
 // const conString = 'postgres://USERNAME:PASSWORD@HOST:PORT';
-const conString = ''; // TODO: Don't forget to set your own conString
+const conString = 'postgres://localhost:5432/kilvolt'; // DONE: Don't forget to set your own conString
 const client = new pg.Client(conString);
 client.connect();
 client.on('error', err => console.error(err));
@@ -18,8 +18,9 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static('./public'));
 
 
-// COMMENT: What is this function doing? Why do we need it? Where does it receive a request from?
-// (put your response in a comment here)
+// COMMENT:(DONE) What is this function doing? Why do we need it? Where does it receive a request from?
+// proxyGitHub is a routing github request for the parameters it recieves. We need it because it is our server side request to an API. Recieves its request from requestRepos funxtion in repo.js.
+
 function proxyGitHub(request, response) {
   console.log('Routing GitHub request for', request.params[0]);
   (requestProxy({
@@ -29,10 +30,11 @@ function proxyGitHub(request, response) {
 }
 
 
-// COMMENT: What is this route doing? Where does it receive a request from?
-// (put your response in a comment here)
+// COMMENT:(DONE) What is this route doing? Where does it receive a request from?
+// It is a response to send the file new.html. It recieves a request when there is a request for new.html.
 app.get('/new', (request, response) => response.sendFile('new.html', {root: './public'}));
 app.get('/admin', (request, response) => response.sendFile('admin.html', {root: './public'}));
+
 app.get('/github/*', proxyGitHub);
 
 // REVIEW: This is a new route to find a specific instance of an article record from the DB.
@@ -106,8 +108,8 @@ app.post('/articles', function(request, response) {
 });
 
 
-// COMMENT: What is this route doing? Where does it receive a request from?
-// (put your response in a comment here)
+// COMMENT:(DONE) What is this route doing? Where does it receive a request from?
+// Updating an article by its id in our database table. Updated manually through the postgres shell or through Article.protoype.updateRecord.
 app.put('/articles/:id', (request, response) => {
   client.query(`
     UPDATE authors
